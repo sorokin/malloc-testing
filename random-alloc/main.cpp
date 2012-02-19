@@ -6,7 +6,7 @@ int main(int argc, char *argv[])
 {
     std::vector<std::vector<char> > v;
 
-    size_t N = 100000;
+    size_t const N = 100000;
     for (size_t i = 0; i != N; ++i)
     {
         size_t const MAX_SIZE = 40000;
