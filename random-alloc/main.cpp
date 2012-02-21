@@ -1,12 +1,11 @@
+#include <chrono>
 #include <cstdlib>
 #include <iostream>
 #include <vector>
 
-int main(int argc, char *argv[])
+void batch(std::vector<std::vector<char> >& v)
 {
-    std::vector<std::vector<char> > v;
-
-    size_t const N = 100000;
+    size_t const N = 1000;
     for (size_t i = 0; i != N; ++i)
     {
         size_t const MAX_SIZE = 40000;
@@ -22,6 +21,20 @@ int main(int argc, char *argv[])
             //std::cout << "random-alloc: insert" << std::endl;
             v.push_back(std::vector<char>(rand() % 10000));
         }
+    }
+}
+
+int main(int argc, char *argv[])
+{
+    std::vector<std::vector<char> > v;
+
+    for (size_t i = 0; i != 100; ++i)
+    {
+        auto start = std::chrono::high_resolution_clock::now();
+        batch(v);
+        auto end = std::chrono::high_resolution_clock::now();
+        std::cout << std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count()
+                  << " milliseconds\n";
     }
 
     return EXIT_SUCCESS;
